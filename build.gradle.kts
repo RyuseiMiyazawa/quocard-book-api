@@ -29,6 +29,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-jooq")
     implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-database-postgresql")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     runtimeOnly("org.postgresql:postgresql")
@@ -37,7 +38,10 @@ dependencies {
     jooqGenerator("org.jooq:jooq-meta-extensions:3.19.23")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
+    testImplementation("org.testcontainers:junit-jupiter:1.20.4")
+    testImplementation("org.testcontainers:postgresql:1.20.4")
     testRuntimeOnly("com.h2database:h2")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

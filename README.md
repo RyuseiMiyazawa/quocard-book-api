@@ -18,6 +18,14 @@
 - PostgreSQL 16
 - Gradle Wrapper
 
+## 設計方針
+
+- DB スキーマは Flyway で管理し、migration を唯一の真実のソースにする
+- jOOQ は migration からコード生成し、SQL の型安全性を優先する
+- API は Controller / Service / Repository の薄い3層に留めて過剰な抽象化を避ける
+- ビジネスルールは Service 層で明示的に検証し、DB 制約と二重で担保する
+- エラー応答は `ProblemDetail` に統一する
+
 ## 機能
 
 - 著者の登録
@@ -107,7 +115,19 @@ curl http://localhost:8080/authors/1/books
 ./gradlew test
 ```
 
-テストでは `test` プロファイルを使い、インメモリ H2 で実行しています。アプリケーション実行時は PostgreSQL を使用します。
+以下を組み合わせています。
+
+- Service 層の単体テスト
+- H2 を使った API 統合テスト
+- Testcontainers + PostgreSQL を使った API 統合テスト
+
+アプリケーション実行時は PostgreSQL を使用します。
+
+Docker が利用できる環境であれば PostgreSQL 実DBテストまで含めて `./gradlew test` で確認できます。
+
+## OpenAPI
+
+API 仕様は [docs/openapi.yaml](docs/openapi.yaml) に記載しています。
 
 ## 実装メモ
 
