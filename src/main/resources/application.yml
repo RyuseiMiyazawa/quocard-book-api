@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: quocard-book-api
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/quocard_book_api}
+    username: ${DB_USERNAME:quocard}
+    password: ${DB_PASSWORD:quocard}
+    driver-class-name: org.postgresql.Driver
+  jooq:
+    sql-dialect: postgres
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+
+server:
+  error:
+    include-message: always
